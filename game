@@ -1,0 +1,127 @@
+from pro import total,creation,will, cumcolor
+import random 
+from players import Player1
+
+class Game:
+    def __init__(self, name):
+        self.name = name
+        players = [Player1]
+        self.deck_of_player = []
+        self.score = 0
+        self.deck_table = []
+    
+    
+    
+    def Distribute_of_deck(self):
+        random.shuffle(total)
+        for i in range(7):
+            card1 = total.pop(0)
+            self.deck_of_player.append(card1)
+        card_table = total.pop(0)
+        self.deck_table.append(card_table)
+
+
+    def Behavior_of_deck(self):
+        print(self.deck_of_player)
+        print(self.deck_table[::-1])
+        if self.deck_table[0] == 'change_of_color' or self.deck_table[0] == 'change_of_color+4':
+            while len(self.deck_table) != len(self.deck_table +1):
+                vf = input("You card have ability:")
+                if vf == "Si":
+                    take1 = input("Enter the color of card")
+                    take2 = input("Enter the ability of card")
+                    take = [take1, take2]
+                    count = 1
+                    if take2 == 'sum_tow':
+                        if count == 1:
+                            for search in total[0:2]:
+                                for r in range(0,1):
+                                    buck = total.pop(r)
+                                    Player.deck_of_player(buck)
+                                
+                        
+                else:
+                    if vf == "No":
+                        take1 = input("Enter the color of card")
+                        take2 = input("Enter the number of card")
+                        take = [take1, take2]
+
+                        if take in self.deck_of_player:
+                            pos_card1 = self.deck_of_player.index(take)
+                            dele = self.deck_of_player.pop(pos_card1)
+                            self.deck_table.append(dele)
+                        else:
+                            print("The name is incorrect.")
+        else:
+            while self.score == 500:
+                veri = input("Do you have card for play:")
+                if veri == "Yes":
+                    v_a = input("Is a card of ability:")
+                    if v_a == "Yes":
+                        take1 = input("Enter the color of card")
+                        take2 = input("Enter the ability of card")
+                        take = [take1, take2]
+                    else:
+                        if v_a == "No":
+                            take1 = input("Enter the color of card")
+                            take2 = input("Enter the number of card")
+                            take = [take1, take2]
+                            
+                    if take in self.deck_of_player:
+                        pos_card = self.deck_of_player.index(take)
+                        if take[0] in self.deck_table[-1] or take[1] in self.deck_table[-1]:
+                            dele = self.deck_of_player.pop(pos_card)
+                            self.deck_table.append(dele)
+                            print(self.deck_of_player)
+                            print(self.deck_table[::-1])
+                        else:
+                            print("invalid move")
+                else:
+                    if veri == "No":
+                        print("You don't have card that match")
+                        mazo = input("Enter 'No' for take ")
+                        if mazo == "No":
+                            m = total.pop(0)
+                            if m[0] in self.deck_table[-1] or m[1] in self.deck_table[-1]:
+                                self.deck_table.append(m)
+                            else:
+                                self.deck_of_player.append(m)
+                                print(self.deck_of_player)
+                                print(self.deck_table[::-1])
+
+
+PlayerList = []
+
+def input_player():
+    check = '234'
+    inputopcion = input("Entre numero de player:")
+    if len(inputopcion) != 1:
+        print("NO es valida")
+    while inputopcion not in check:
+        print("NO es valida")
+        inputopcion = input("Entre numero de player:")
+    return int(inputopcion)
+
+def creator_of_player():
+    verify_entre = input_player()
+    for v_p in range(verify_entre):
+        input_name = input("Entre nombre player{}:".format(v_p + 1))
+        if len(input_name) == 0 or len(input_name) > 20:
+            print("El nombre no es valido, vuelve a internar")
+            input_name = input("Entre nombre player{}:".format(v_p + 1))
+        PlayerList.append(input_name)
+    return PlayerList
+
+input_player()
+creator_of_player()
+
+
+count = 0
+while count < len(PlayerList):
+    Player = Game(PlayerList[count])
+    print(Player.name)
+    count +=1
+
+
+
+
