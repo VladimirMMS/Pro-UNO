@@ -64,9 +64,10 @@ Deck_see= Deck()
 num_color = Deck_see.creation_of_card()
 creation = Deck_see.creation_of_special_deck()
 will = Deck_see.creation_of_willcard()
-total = Deck_see
-print(total)
+compro = Deck_see
+total = compro.decks
 
+copy_total = compro.decks
 
 
 cumcolor = []
@@ -76,7 +77,6 @@ for p in range(0,len(num_color[0])):
     st +=  " " + str(num_color[1][p])
     cumcolor.append(st)
     st = ""
-
 
 
 
