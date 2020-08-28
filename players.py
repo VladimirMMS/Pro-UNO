@@ -1,6 +1,6 @@
-from board import t_b, Board, PlayerList, Ult_board, compro_d
+from board import card_table, Board, name_list, ult_board
 from os import system
-from pro import total,creation,will, Deck, Deck_see
+from pro import total,creation,will, Deck, deck_see
 import sys
 import random
 import time
@@ -8,7 +8,7 @@ import time
 
 players = []
 count = 0
-global_cont = 0
+global_verify = 0
 
 
 class Players:
@@ -19,26 +19,25 @@ class Players:
         
         
         
-    def Distribute_of_deck(self):
+    def distribute_of_deck(self):
         random.shuffle(total)
         for i in range(7):
-            card1 = total.pop(0)
-            self.deck_of_player.append(card1)
+            card_1 = total.pop(0)
+            self.deck_of_player.append(card_1)
 
 
 
-    def PLay_game1(self):
-        print("""                                      {}  """.format(self.name))
+    def play_game(self):
+        print("""You name:                                      {}  """.format(self.name))
         print("""You card are:{} """.format(self.deck_of_player))
         print("You score is:{}".format(self.score))
-
+        verif_input = 0 
 
 #to be able to use variable outside of functions, we can global it.
 
-        global take
+    
         global players
-        global global_cont
-        global encapsula
+        global global_verify
         global count
         
         colors_spe = ['Blue', 'Red', 'Yellow','Green']
@@ -47,19 +46,20 @@ class Players:
 # you will have to enter the colors stored in colors_spe.
         
         
-        if t_b[0] == ['change_of_color'] or t_b[0] == ['change_of_color+4']:
+        if card_table[0] == ['change_of_color'] or card_table[0] == ['change_of_color+4']:
             intro = input("Enter the color of deck:")
-            for bus in colors_spe:
-                if bus in intro:
-                    t_b.insert(0,[intro, intro])
-                    system("cls")
-                    Ult_board.Table()
-                    
+            while intro not in colors_spe:
+                intro_c = input("Enter the color of deck:")
+            card_table.insert(0,[intro, intro])
+            system("cls")
+            ult_board.table()
+            print("""You name:                                         {}  """.format(self.name))
+            print("""You card are:{} """.format(self.deck_of_player))
+            print("You score is:{}".format(self.score))
     #this is corresponding to the cancellation deck.
 
         if len(players) == 1:
             counte = 1
-
 #here we save the length of the card number that the player has, 
 # to keep it present in the loop
 
@@ -70,8 +70,7 @@ class Players:
                 len_player = com
 
         #Here we enter the game system.
-        
-        if t_b[0] != 'change_of_color' or t_b[0] != 'change_of_color+4':
+        if card_table[0] != 'change_of_color' or card_table[0] != 'change_of_color+4':
             while len(self.deck_of_player) == len_p:
                 
                 #the player is asked if he has a card to play, 
@@ -96,356 +95,217 @@ class Players:
                     for get in range(0, len(self.deck_of_player)):
                         if get == introduc:
                             take = self.deck_of_player.pop(get)
-                            
-                            
-                            #in case the selected card is this, 
-                            # it will do its respective ability.
-                            
-                            if take == ['change_of_color']:
-                                t_b.insert(0,take)
-                                intro_c = input("Enter the color of deck:")
-                                for bus in colors_spe:
-                                    if bus in intro_c:
-                                        t_b.insert(0,[intro_c, intro_c])
-                                        
-                            #in case the selected card is this, 
-                            # it will do its respective ability.
-                            
-                            if take == ['change_of_color+4']:
-                                count_m = 0
-                                for r_d in self.deck_of_player:
-                                    if len(r_d) != 1:
-                                        
-                            #This card can be played only if you no longer 
-                            # have a card compatible with the table card.
-                            
-                                        conten = t_b[0]
-                                        if r_d[0] in conten[0] or str(r_d[1]) in str(conten[-1]):
-                                            print("You have card to play")
-                                            print("Remember, you only can play that card, if don't have more")
-                                            count_m = 1
-                                            self.deck_of_player.append(take)
-
-                                #if the player no longer has any more card to play and only 
-                                # has the change_of_color count_t it will not increase to one, and if they can play it
-                                
-                                if count_m == 0:
-                                    if count == len(players)- 1:
-                                        t_b.insert(0,take)
-                                        for search in total[0:4]:
-                                            for r in range(0,1):
-                                                buck = total.pop(r)
-                                                players[0].deck_of_player.append(buck)
-                                        intro_c = input("Enter the color of deck:")
-                                        for bus in colors_spe:
-                                            if bus in intro_c:
-                                                t_b.insert(0,[intro_c,intro_c])
-                                                
-                                
-                                #in case the player will be the ultime.
-                                
-                                    else:
-                                        if count != len(players)- 1:
-                                            t_b.insert(0,take)
-                                            for search in total[0:4]:
-                                                for r in range(0,1):
-                                                    buck = total.pop(r)
-                                                    players[count +1].deck_of_player.append(buck)
-                                            intro_c = input("Enter the color of deck:")
-                                            for bus in colors_spe:
-                                                if bus in intro_c:
-                                                    t_b.insert(0,[intro_c, intro_c])
-                            
-                            #the length of the cards that does not change color have two positions. 
-                            # Therefore its length is two.
-                            
-                            if len(take) == 2:
-                                conten = t_b[0]
-                                if take[0] in conten[0] or str(take[1]) in str(conten[-1]):
-                                    t_b.insert(0,take)
-                                    
-                                    
-                                    if take[-1] == 'sum_tow': #this card adds two to the next player
-                                        print("{} Played sum_two".format(self.name))
-                                        if count == len(players)- 1:
-                                            for search in total[0:2]:
-                                                for r in range(0,1):
-                                                    buck = total.pop(r)
-                                                    players[0].deck_of_player.append(buck)
-                                                
-                                        #in case the player will be the ultime.
-                                        
-                                        else:
-                                            if count != len(players) - 1:
-                                                for search in total[0:2]:
-                                                    for r in range(0,1):
-                                                        buck = total.pop(r)
-                                                        players[count +1].deck_of_player.append(buck)
-                                    
-                                    
-                                    
-                                    if take[-1] == 'Cancelation': #this card cancels his turn for one round.
-                                        print("{} Played Cancelation".format(self.name))
-                                        encapsula = []
-                                        if count != len(players)-1:
-                                            elemento = players[count+1]
-                                            for i in range(0, len(players)):
-                                                if elemento == players[i]:
-                                                    encapsula.append(elemento)
-                                                    encapsula.append(i)
-                                            players.pop(encapsula[1])
-                                            
-                                        #in case the player will be the ultime.
-
-                                        if count == len(players)-1:
-                                            elemento = players[0]
-                                            for e in range(0, len(players)):
-                                                if elemento == players[e]:
-                                                    encapsula.append(elemento)
-                                                    encapsula.append(e)
-                                            players.pop(encapsula[1])
-                                            
-                                    
-                                    if take[-1] == 'Direction': #this card reverses directions.
-                                        print("{} Played Direction".format(self.name))
-                                        global_cont = 1
-                                        new = []
-                                        solo = players[count]
-                                        cont = []
-                                        for e in range(len(players)):
-                                            cont.append(e)
-                                            if players[e] == solo:
-                                                new.append(players[e])
-                                            if solo != players[0]:
-                                                if new:
-                                                    for i in cont[::-1]:
-                                                        if players[i-1] != solo:
-                                                            new.append(players[i-1])
-                                                            
-                                                    cont = []
-
-                                            #this condition will be fulfilled in case it 
-                                            # is not equal to first position.
-                                            
-                                            else:
-                                                if len(cont) == len(players):
-                                                    for i in cont[::-1]:
-                                                        if players[i] != solo:
-                                                            new.append(players[i])
-                                        
-                                        #to update the shifts of the new positions.
-                                        
-                                        if len(PlayerList) == 4:
-                                            new = [new[1],new[2],new[3],new[0]]
-                                            players = new
-                                        if len(PlayerList) == 3:
-                                            new = [new[1],new[2],new[0]]
-                                            players = new
-                                        if len(PlayerList) == 2:
-                                            new = [new[1],new[0]]
-                                            players = new
-                                        
-                                else:
-                                    if take[0] not in conten[0] or str(take[1]) not in str(conten[-1]):
-                                        print('Mov incorrect')         
-                #If the player says that he has no card to play, 
-                # he will have to take it from the table.
+                            verif_input = 1
                 else:
                     if veri == "No":
                         print("You don't have card that match")
-                        mazo = input("Enter 'No' for take:")
-                        if mazo == "No":
-                            m = total.pop(0)
-                            
-                            
-                            #We use the same logic as above, 
-                            # in case the card you draw has an ability.
-                            
-                            if m != ['change_of_color']:  
-                                if m != ['change_of_color+4']:
-                                    conten = t_b[0]
-                                    if m[0] in conten[0] or str(m[1]) in str(conten[-1]):
-                                        len_p = len_p+1
-                                        t_b.insert(0, m)
-                                        
-                                        
-                                        if m[-1] == 'sum_tow':#this card adds two to the next player.
-                                            print("{} Played sum_two".format(self.name))
-                                            if count == len(players)- 1:
-                                                for search in total[0:2]:
-                                                    for r in range(0,1):
-                                                        buck = total.pop(r)
-                                                        players[0].deck_of_player.append(buck)
-                                            else:
-                                                if count != len(players) - 1:
-                                                    for search in total[0:2]:
-                                                        for r in range(0,1):
-                                                            buck = total.pop(r)
-                                                            players[count +1].deck_of_player.append(buck)
-                                        
-                                        
-                                        if m[-1] == 'Cancelation': #this card cancels his turn for one round.
-                                            print("{} Played Cancelation".format(self.name))
-                                            encapsula = []
-                                            if count != len(players)-1:
-                                                elemento = players[count+1]
-                                                for i in range(0, len(players)):
-                                                    if elemento == players[i]:
-                                                        encapsula.append(elemento)
-                                                        encapsula.append(i)
-                                                players.pop(encapsula[1])
+                        confi_veri = input("Enter 'No' for take:")
+                        if confi_veri == "No":
+                            take = total.pop(0)
+                            len_p = len_p+1
+                            verif_input = 1
+                
+                if verif_input == 1:
+                    if take == ['change_of_color']:
+                        card_table.insert(0, take)
+                        intro_c = input("Enter the color of deck:")
+                        while intro_c not in colors_spe:
+                            intro_c = input("Enter the color of deck:")
+                        card_table.insert(0,[intro_c, intro_c])
+                                
+                    #in case the selected card is this, 
+                    # it will do its respective ability.
+                    
+                    if take == ['change_of_color+4']:
+                        verify_num = 0
+                        for r_d in self.deck_of_player:
+                            if len(r_d) != 1:
+                                comparator_cube = card_table[0]
+                                if r_d[0] in comparator_cube[0] or str(r_d[1]) in str(comparator_cube[-1]):
+                                    print("You have card to play")
+                                    print("Remember, you only can play that card, if don't have more")
+                                    verify_num = 1
+                                    self.deck_of_player.append(take)
 
-                                            if count == len(players)-1:
-                                                elemento = players[0]
-                                                for e in range(0, len(players)):
-                                                    if elemento == players[e]:
-                                                        encapsula.append(elemento)
-                                                        encapsula.append(e)
-                                                players.pop(encapsula[1])
-                                                
-                                                
-                                                
-                                        if m[-1] == 'Direction': #this card reverses directions.
-                                            print("{} Played Direction".format(self.name))
-                                            global_cont = 1
-                                            new = []
-                                            solo = players[count]
-                                            cont = []
-                                            for e in range(len(players)):
-                                                cont.append(e)
-                                                if players[e] == solo:
-                                                    new.append(players[e])
-                                                if solo != players[0]:
-                                                    if new:
-                                                        for i in cont[::-1]:
-                                                            if players[i-1] != solo:
-                                                                new.append(players[i-1])
-                                                                
-                                                        cont = []
-                                                
-                                                #this condition will be fulfilled in case it 
-                                                #is not equal to first position.
-                                                
-                                                else:
-                                                    if len(cont) == len(players):
-                                                            for i in cont[::-1]:
-                                                                if players[i] != solo:
-                                                                    new.append(players[i])
-                                            
-                                            #to update the shifts of the new positions.
-                                            
-                                            if len(PlayerList) == 4:
-                                                new = [new[1],new[2],new[3],new[0]]
-                                                players = new
-                                            if len(PlayerList) == 3:
-                                                new = [new[1],new[2],new[0]]
-                                                players = new
-                                            if len(PlayerList) == 2:
-                                                new = [new[1],new[0]]
-                                                players = new
-                                    
-                                    #in case you do not meet the conditions.
-                                    else:
-                                        self.deck_of_player.append(m)
-
-                            #in case the selected card is this, 
-                            # it will do its respective ability.
-                            
-                            if m == ['change_of_color']:
-                                len_p = len_p+1
-                                t_b.insert(0, m)
+                        #if the player no longer has any more card to play and only 
+                        # has the change_of_color count_t it will not increase to one, and if they can play it
+                        
+                        if verify_num == 0:
+                            if count == len(players)- 1:
+                                card_table.insert(0, take)
+                                for search in total[0:4]:
+                                    for r in range(0, 1):
+                                        buck = total.pop(r)
+                                        players[0].deck_of_player.append(buck)
                                 intro_c = input("Enter the color of deck:")
-                                for bus in colors_spe:
-                                    if bus in intro_c:
-                                        t_b.insert(0,[intro_c, intro_c])
-                                        
-                            #if the player no longer has any more card to play and only 
-                            # has the change_of_color count_t it will not increase to one, and if they can play it
-                            
-                            if m == ['change_of_color+4']:
-                                len_p = len_p+1
-                                t_b.insert(0, m)
-                                if count == len(players)- 1:
+                                while intro_c not in colors_spe:
+                                    intro_c = input("Enter the color of deck:")
+                                card_table.insert(0,[intro_c, intro_c])
+                    
+                    
+                        #in case the player will be the ultime.
+                        
+                            else:
+                                if count != len(players)- 1:
+                                    card_table.insert(0,take)
                                     for search in total[0:4]:
-                                        for r in range(0,1):
+                                        for r in range(0, 1):
+                                            buck = total.pop(r)
+                                            players[count +1].deck_of_player.append(buck)
+                                    intro_c = input("Enter the color of deck:")
+                                    while intro_c not in colors_spe:
+                                        intro_c = input("Enter the color of deck:")
+                                    card_table.insert(0,[intro_c, intro_c])
+                
+                #the length of the cards that does not change color have two positions. 
+                # Therefore its length is two.
+                if verif_input == 1:
+                    if len(take) == 2:
+                        comparator_cube = card_table[0]
+                        if take[0] in comparator_cube[0] or str(take[1]) in str(comparator_cube[-1]):
+                            card_table.insert(0, take)
+                            
+                            
+                            if take[-1] == 'sum_two': #this card adds two to the next player
+                                print("{} Played sum_two".format(self.name))
+                                if count == len(players)-1:
+                                    for search in total[0:2]:
+                                        for r in range(0, 1):
                                             buck = total.pop(r)
                                             players[0].deck_of_player.append(buck)
-                                    intro_c = input("Enter the color of deck:")
-                                    for bus in colors_spe:
-                                        if bus in intro_c:
-                                            t_b.insert(0,[intro_c, intro_c])
-                                
+                                        
                                 #in case the player will be the ultime.
                                 
                                 else:
-                                    if count != len(players)- 1:
-                                        t_b.insert(0,m)
-                                        for search in total[0:4]:
-                                            for r in range(0,1):
+                                    if count != len(players)-1:
+                                        for search in total[0:2]:
+                                            for r in range(0, 1):
                                                 buck = total.pop(r)
                                                 players[count +1].deck_of_player.append(buck)
-                                        intro_c = input("Enter the color of deck:")
-                                        for bus in colors_spe:
-                                            if bus in intro_c:
-                                                t_b.insert(0,[intro_c, intro_c])
+                            
+                            
+                            
+                            if take[-1] == 'Cancelation': #this card cancels his turn for one round.
+                                print("{} Played Cancelation".format(self.name))
+                                encapsula = []
+                                if count != len(players)-1:
+                                    elemento = players[count+1]
+                                    for i in range(0, len(players)):
+                                        if elemento == players[i]:
+                                            encapsula.append(elemento)
+                                            encapsula.append(i)
+                                    players.pop(encapsula[1])
+                                    
+                                #in case the player will be the ultime.
+
+                                if count == len(players)-1:
+                                    elemento = players[0]
+                                    for e in range(0, len(players)):
+                                        if elemento == players[e]:
+                                            encapsula.append(elemento)
+                                            encapsula.append(e)
+                                    players.pop(encapsula[1])
+                                    
+                            
+                            if take[-1] == 'Direction': #this card reverses directions.
+                                print("{} Played Direction".format(self.name))
+                                global_verify = 1
+                                new = []
+                                solo = players[count]
+                                cont = []
+                                for e in range(len(players)):
+                                    cont.append(e)
+                                    if players[e] == solo:
+                                        new.append(players[e])
+                                    if solo != players[0]:
+                                        if new:
+                                            for i in cont[::-1]:
+                                                if players[i-1] != solo:
+                                                    new.append(players[i-1])
+                                                    
+                                            cont = []
+
+                                    #this condition will be fulfilled in case it 
+                                    # is not equal to first position.
+                                    
+                                    else:
+                                        if len(cont) == len(players):
+                                            for i in cont[::-1]:
+                                                if players[i] != solo:
+                                                    new.append(players[i])
+                                
+                                #to update the shifts of the new positions.
+                                
+                                if len(name_list) == 4:
+                                    new = [new[1], new[2], new[3], new[0]]
+                                    players = new
+                                if len(name_list) == 3:
+                                    new = [new[1], new[2], new[0]]
+                                    players = new
+                                if len(name_list) == 2:
+                                    new = [new[1], new[0]]
+                                    players = new
+                                
+                        else:
+                            print('the deck is not compatible')
+                            self.deck_of_player.append(take)
+                            len_p = len_p - 1
         
         #This belongs to the cancellation card,
         #  this is to re-enter at a certain time the player
         #  whose turn is canceled in a defined way
         
-        if len(PlayerList) == 4 or len(PlayerList) == 3:
-            if len(players) != len(PlayerList):
-                if encapsula[1] == len(PlayerList)-1:
+        if len(name_list) == 4 or len(name_list) == 3:
+            if len(players) != len(name_list):
+                if encapsula[1] == len(name_list)-1:
                     if count == 0:
-                        players.insert(encapsula[1],encapsula[0])
+                        players.insert(encapsula[1], encapsula[0])
         
         #this is for different types of case
         
-        if len(PlayerList) == 4 or len(PlayerList) == 3:
-            if len(players) < len(PlayerList):
+        if len(name_list) == 4 or len(name_list) == 3:
+            if len(players) < len(name_list):
                 if count == 1:
-                    players.insert(encapsula[1],encapsula[0])
+                    players.insert(encapsula[1], encapsula[0])
                     count +=1
                     
         #this is for different types of case
         
-        if len(PlayerList) == 2:
-            if len(players) < len(PlayerList):
+        if len(name_list) == 2:
+            if len(players) < len(name_list):
                 if counte == 1:
                     if encapsula[1] == 1:
-                        players.insert(encapsula[1],encapsula[0])
+                        players.insert(encapsula[1], encapsula[0])
         
         #this is for different types of case.
         
-        if len(PlayerList) == 2:
-            if len(players) < len(PlayerList):
+        if len(name_list) == 2:
+            if len(players) < len(name_list):
                 if counte == 1:
                     if encapsula[1] == 0:
-                        players.insert(encapsula[1],encapsula[0])
+                        players.insert(encapsula[1], encapsula[0])
                         count+=1
                         
-        if len(players) != len(PlayerList):
+        if len(players) != len(name_list):
             if len(self.deck_of_player) == 1:
                 players.insert(encapsula[1], encapsula[0])
 
         time.sleep(1)
         system("cls")
-        table = Ult_board.Table()
+        table = ult_board.table()
 
 
 
 
 
-    def winner_of_player(self):
+    def win_player(self):
         global total
-        global t_b
-        global table
-        global compro_d
+        global card_table
         #If don't have cards in total of decks.
         
         if len(total) == 0:
-            for dist in range(0,len(t_b)):
-                get = t_b[dist].pop(0)
+            for dist in range(0,len(card_table)):
+                get = card_table[dist].pop(0)
                 total.append(get)
         
         #If the players only have one cards, winer the round.
@@ -467,7 +327,7 @@ class Players:
                     while len(players[conte].deck_of_player) > 0:
                         players[conte].deck_of_player = []
                         conte+=1
-                        if conte == len(PlayerList):
+                        if conte == len(name_list):
                             conte = 0
                 
                 
@@ -479,16 +339,16 @@ class Players:
                             conte+=1
                     
                     total = []
-                
+
                 #Call of function again, for the new round.
                     
-                    compro = Deck_see
-                    total = compro.decks
-                    will = Deck_see.creation_of_willcard()
+                    last_decks = deck_see
+                    total = last_decks.decks
+                    will = deck_see.create_willcard()
                     
-                    Ult_board.cart_of_table()
+                    ult_board.cart_of_table()
                     system("cls")
-                    Ult_board.Table()
+                    ult_board.table()
                     
                     
             #If the player does not want continue playing.
@@ -505,7 +365,7 @@ class Players:
                         card1 = total.pop(0)
                         self.deck_of_player.append(card1)
                         system("cls")
-                        Ult_board.Table()
+                        ult_board.Table()
 
     def distribute_again(self):
         #In case a round ends, here the cards will be dealt again.
