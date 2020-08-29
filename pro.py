@@ -37,7 +37,9 @@ class Deck:
                 colors_argu.append(color_1)
                 number_argu.append(n)
                 self.decks.append([color_1, n])#It save in the total decks
+        print(len(number_argu))
         return [colors_argu, number_argu]
+        
 
 
 #How his name say, it's the creation of the special card.
@@ -71,6 +73,7 @@ class Deck:
                 self.ability.append(ability)
                 ability_special.append([color, ability])
                 self.decks.append([color, ability])#It save in the total decks
+        print(len(self.d))
         return ability_special
 
 
@@ -98,4 +101,6 @@ num_color = deck_see.create_card()
 creation = deck_see.create_specialdeck()
 will = deck_see.create_willcard()
 last_decks = deck_see
+
+
 total = last_decks.decks

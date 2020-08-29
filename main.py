@@ -26,6 +26,6 @@ while players[count].score != 500:
         count = 0
 
 
-    if __name__ == '__main__':
-        'main'()
+    # if __name__ == '__main__':
+    #     'main'()
         
