@@ -279,7 +279,6 @@ class Game:
         if self.players[self.count].play_check == 0:
             self.count = self.count -1
     
-
                 
                 
 game = Game()
