@@ -3,3 +3,4 @@ class Card():
         self.color = kwargs['color']
         self.number = kwargs['number']
         self.ability = kwargs['ability']
+        

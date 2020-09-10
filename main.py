@@ -1,31 +1,24 @@
-from players import Players, count, players, name_list, global_verify
+from players import Player
+from game import Game, game
+from os import system
 
 
+game.create_player()
 
-while len(players) < len(name_list):
-    for call in range(0, len(name_list)):
-        player = Players(name_list[call])
-        players.append(player)
 
-for all_player in players:
+for all_player in game.players:
     all_player.distribute_of_deck()
 
+while game.players[game.count].score != 500:
+    if game.players_direction == 1:
+        game.count = 0
+        game.players_direction = 0
+    game.players[game.count].play_game()
+    game.check_compatibility()
+    game.add_ability()
+    game.win_player()
+    game.count+=1
+    if game.count == len(game.players):
+        game.count = 0
 
-
-while players[count].score != 500:    
-    if global_verify == 1:
-        count = 0
-        global_verify = 0
-    players[count].distribute_again()
-    players[count].play_game()
-    players[count].win_player()
-    players[count].distribute_again()
-    if count != len(name_list):
-        count+=1
-    if count == len(players):
-        count = 0
-
-
-    # if __name__ == '__main__':
-    #     'main'()
-        
+       

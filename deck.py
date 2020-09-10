@@ -12,7 +12,7 @@ class Deck():
 
 
     def create_card(self):
-        #
+        
         color_argument = []
         number_argument = []
         
@@ -60,8 +60,9 @@ class Deck():
         
         for will_ran in range(len(will_argument)):
             self.decks_compi.append([will_argument[will_ran].ability])
-        print(self.decks_compi)
+        
 
 card = Deck()
-card.create_card()
-card.create_specialcard()
+normal_creation = card.create_card()
+special_creation = card.create_specialcard()
+total_card = card.decks_compi
