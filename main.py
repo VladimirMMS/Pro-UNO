@@ -21,4 +21,3 @@ while game.players[game.count].score != 500:
     if game.count == len(game.players):
         game.count = 0
 
-       

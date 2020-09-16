@@ -64,7 +64,7 @@ class Game:
                    
             
     def add_ability(self):
-        
+        print(self.players[self.count].take)
         if self.players[self.count].take == ['change_of_color']:
             card_table.insert(0, self.players[self.count].take)
             intro_c = input("Enter the color of deck:")
@@ -79,10 +79,10 @@ class Game:
                     comparator_cube = card_table[0]
                     if r_d[0] in comparator_cube[0] or str(r_d[1]) in str(comparator_cube[-1]):
                         verify_messeger = 1
-            self.players[self.count].deck_of_player.append(self.players[self.count].take)
             
-                        
+            
             if verify_messeger == 1:
+                self.players[self.count].deck_of_player.append(self.players[self.count].take)
                 print("You have card to play")
                 print("Remember, you only can play that card, if don't have more")
                 
@@ -90,6 +90,7 @@ class Game:
             # has the change_of_color count_t it will not increase to one, and if they can play it
             
             if verify_messeger == 0:
+                self.players[self.count].play_check == 1
                 if self.count == len(self.players)- 1:
                     card_table.insert(0, self.players[self.count].take)
                     for search in total_card[0:4]:
@@ -115,85 +116,88 @@ class Game:
                             intro_c = input("Enter the color of deck:")
                         card_table.insert(0,[intro_c, intro_c])
                         
-        # if self.players[self.count].play_check == 0:
-                   
-        if self.players[self.count].take[-1] == 'Sum_two': #this card adds two to the next player
-            print("{} Played sum_two".format(self.players[self.count].name))
-            if self.count == len(self.players)-1:
-                for search in total_card[0:2]:
-                    for r in range(0, 1):
-                        buck = total_card.pop(r)
-                        self.players[0].deck_of_player.append(buck)
+        take = self.players[self.count].take         
+        comparator_cube = card_table[0]
+        if len(take) == 2:
+            if take[0] in comparator_cube[0] or str(take[1]) in str(comparator_cube[-1]):
                     
-            #in case the player will be the ultime.
+                if self.players[self.count].take[-1] == 'Sum_two': #this card adds two to the next player
+                    print("{} Played sum_two".format(self.players[self.count].name))
+                    if self.count == len(self.players)-1:
+                        for search in total_card[0:2]:
+                            for r in range(0, 1):
+                                buck = total_card.pop(r)
+                                self.players[0].deck_of_player.append(buck)
+                            
+                    #in case the player will be the ultime.
+                    
+                    else:
+                        if self.count != len(self.players)-1:
+                            for search in total_card[0:2]:
+                                for r in range(0, 1):
+                                    buck = total_card.pop(r)
+                                    self.players[self.count +1].deck_of_player.append(buck)    
             
-            else:
-                if self.count != len(self.players)-1:
-                    for search in total_card[0:2]:
-                        for r in range(0, 1):
-                            buck = total_card.pop(r)
-                            self.players[self.count +1].deck_of_player.append(buck)    
-    
-    
-        if self.players[self.count].take[-1] == 'Cancelation':
-            print("{} Played Cancelation".format(self.players[self.count].name))
-            replit = 0
-            if self.count == len(self.players) -2:
-                self.count = -1
+            
+                if self.players[self.count].take[-1] == 'Cancelation':
+                    print("{} Played Cancelation".format(self.players[self.count].name))
+                    replit = 0
+                    if self.count == len(self.players) -2:
+                        self.count = -1
+                        
+                    if self.count == len(self.players)-1:
+                        self.count = 0
+                        replit = 1
+                        
+                        
+                    if replit == 0:
+                        if len(self.players) == 4:
+                            if self.count == 0 or self.count == 1:
+                                self.count = self.count +1
+                            
+                    if len(self.players) == 3:
+                        if self.count == 0:
+                            self.count = self.count + 1
                 
-            if self.count == len(self.players)-1:
-                self.count = 0
-                replit = 1
-                
-                
-            if replit == 0:
-                if len(self.players) == 4:
-                    if self.count == 0 or self.count == 1:
-                        self.count = self.count +1
-                    
-            if len(self.players) == 3:
-                if self.count == 0:
-                    self.count = self.count + 1
-        
-        if self.players[self.count].take[-1] == 'Direction': #this card reverses directions.
-            print("{} Played Direction".format(self.players[self.count].name))
-            self.players_direction = 1
-            new = []
-            solo = self.players[self.count]
-            cont = []
-            for e in range(len(self.players)):
-                cont.append(e)
-                if self.players[e] == solo:
-                    new.append(self.players[e])
-                if solo != self.players[0]:
-                    if new:
-                        for i in cont[::-1]:
-                            if self.players[i-1] != solo:
-                                new.append(self.players[i-1])
-                                
-                        cont = []
+                if self.players[self.count].take[-1] == 'Direction': #this card reverses directions.
+                    print("{} Played Direction".format(self.players[self.count].name))
+                    self.players_direction = 1
+                    new = []
+                    solo = self.players[self.count]
+                    cont = []
+                    for e in range(len(self.players)):
+                        cont.append(e)
+                        if self.players[e] == solo:
+                            new.append(self.players[e])
+                        if solo != self.players[0]:
+                            if new:
+                                for i in cont[::-1]:
+                                    if self.players[i-1] != solo:
+                                        new.append(self.players[i-1])
+                                        
+                                cont = []
 
-                #this condition will be fulfilled in case it 
-                # is not equal to first position.
-                
-                else:
-                    if len(cont) == len(self.players):
-                        for i in cont[::-1]:
-                            if self.players[i] != solo:
-                                new.append(self.players[i])
-            
-            #to update the shifts of the new positions.
-            
-            if len(self.players) == 4:
-                new = [new[1], new[2], new[3], new[0]]
-                self.players = new
-            if len(self.players) == 3:
-                new = [new[1], new[2], new[0]]
-                self.players = new
-            if len(self.players) == 2:
-                
-                new = [new[0], new[1]]
-                self.players = new
+                        #this condition will be fulfilled in case it 
+                        # is not equal to first position.
+                        
+                        else:
+                            if len(cont) == len(self.players):
+                                for i in cont[::-1]:
+                                    if self.players[i] != solo:
+                                        new.append(self.players[i])
+                    
+                    #to update the shifts of the new positions.
+                    
+                    if len(self.players) == 4:
+                        new = [new[1], new[2], new[3], new[0]]
+                        self.players = new
+                    if len(self.players) == 3:
+                        new = [new[1], new[2], new[0]]
+                        self.players = new
+                    if len(self.players) == 2:
+                        
+                        new = [new[0], new[1]]
+                        self.players = new
 
     
             
