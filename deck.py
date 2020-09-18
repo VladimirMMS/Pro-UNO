@@ -11,7 +11,7 @@ class Deck():
 
 
 
-    def create_card(self):
+    def create_cards(self):
         
         color_argument = []
         number_argument = []
