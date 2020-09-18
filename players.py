@@ -103,4 +103,3 @@ class Player:
 
         time.sleep(1)
         system("cls")
-     
