@@ -11,7 +11,7 @@ class Deck():
 
 
 
-    def create_card(self):
+    def create_cards(self):
         
         color_argument = []
         number_argument = []
@@ -31,7 +31,7 @@ class Deck():
         for ran in range(len(color_argument)):
             self.decks_compi.append([color_argument[ran].color, number_argument[ran].number])
 
-    def create_specialcard(self):
+    def create_specialcards(self):
         
         color_argument = []
         ability_argument = []
@@ -63,6 +63,6 @@ class Deck():
         
 
 card = Deck()
-normal_creation = card.create_card()
-special_creation = card.create_specialcard()
+normal_creation = card.create_cards()
+special_creation = card.create_specialcards()
 total_card = card.decks_compi

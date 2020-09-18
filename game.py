@@ -139,25 +139,7 @@ class Game:
                                     self.players[self.count +1].deck_of_player.append(buck)    
             
             
-                if self.players[self.count].take[-1] == 'Cancelation':
-                    print("{} Played Cancelation".format(self.players[self.count].name))
-                    replit = 0
-                    if self.count == len(self.players) -2:
-                        self.count = -1
-                        
-                    if self.count == len(self.players)-1:
-                        self.count = 0
-                        replit = 1
-                        
-                        
-                    if replit == 0:
-                        if len(self.players) == 4:
-                            if self.count == 0 or self.count == 1:
-                                self.count = self.count +1
-                            
-                    if len(self.players) == 3:
-                        if self.count == 0:
-                            self.count = self.count + 1
+                
                 
                 if self.players[self.count].take[-1] == 'Direction': #this card reverses directions.
                     print("{} Played Direction".format(self.players[self.count].name))
@@ -198,6 +180,26 @@ class Game:
                         
                         new = [new[0], new[1]]
                         self.players = new
+                        
+                if self.players[self.count].take[-1] == 'Cancelation':
+                    print("{} Played Cancelation".format(self.players[self.count].name))
+                    replit = 0
+                    if self.count == len(self.players) -2:
+                        self.count = -1
+                        
+                    if self.count == len(self.players)-1:
+                        self.count = 0
+                        replit = 1
+                        
+                        
+                    if replit == 0:
+                        if len(self.players) == 4:
+                            if self.count == 0 or self.count == 1:
+                                self.count = self.count +1
+                            
+                    if len(self.players) == 3:
+                        if self.count == 0:
+                            self.count = self.count + 1
 
     
             
@@ -250,8 +252,8 @@ class Game:
                 #Call of function again, for the new round.
                     
                     card = Deck()
-                    normal_creation = card.create_card()
-                    special_creation = card.create_specialcard()
+                    normal_creation = card.create_cards()
+                    special_creation = card.create_specialcards()
                     total_card = card.decks_compi
                     
                     ult_board.cart_of_table()
