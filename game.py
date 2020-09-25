@@ -1,6 +1,6 @@
-from players import Player
-from deck import total_card, colors, Deck
-from board import card_table, Board, ult_board
+from players import Player, card_table
+from deck import  colors, Deck
+from board import Board, total_card, normal_creation, special_creation
 from os import system
 import random
 import sys
@@ -15,7 +15,7 @@ class Game:
 
 
 
-    def create_player(self):
+    def create_players(self):
         #check is a verification of the number of player that we can-
     #enter
 
@@ -38,6 +38,7 @@ class Game:
                     print("Name is not valid, try again")
                     input_name = input("Entre name of players{}:".format(v_p + 1))
             self.players.append(Player(input_name))
+            
     
     def check_compatibility(self):
         
@@ -64,7 +65,7 @@ class Game:
                    
             
     def add_ability(self):
-        print(self.players[self.count].take)
+        
         if self.players[self.count].take == ['change_of_color']:
             card_table.insert(0, self.players[self.count].take)
             intro_c = input("Enter the color of deck:")
@@ -142,6 +143,7 @@ class Game:
                 
                 
                 if self.players[self.count].take[-1] == 'Direction': #this card reverses directions.
+
                     print("{} Played Direction".format(self.players[self.count].name))
                     self.players_direction = 1
                     new = []
@@ -255,7 +257,7 @@ class Game:
                     normal_creation = card.create_cards()
                     special_creation = card.create_specialcards()
                     total_card = card.decks_compi
-                    
+                    ult_board = Board()
                     ult_board.cart_of_table()
                     system("cls")
                     ult_board.create_table()
@@ -279,13 +281,11 @@ class Game:
                         
                    
         if len(self.players[self.count].deck_of_player) == 0:
+            game = Game()
             for all_player in game.players:
                 all_player.distribute_of_deck()
                 
         if self.players[self.count].play_check == 0:
             self.count = self.count -1
-    
-                
-                
-game = Game()
+            
         

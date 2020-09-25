@@ -1,12 +1,15 @@
-from board import card_table, Board, ult_board
+from board import Board, total_card, normal_creation, special_creation
 from os import system
-from deck import total_card , normal_creation, special_creation, Deck, colors
+from deck import  Deck, colors
 import sys
 import random
 import time
 
+ult_board = Board()
+ult_board.cart_of_table()
+card_table = ult_board.deck_table
 
-
+# table = ult_board.table
 
 
 class Player:
@@ -20,6 +23,7 @@ class Player:
         
         
     def distribute_of_deck(self):
+        
         random.shuffle(total_card)
         for i in range(7):
             card_1 = total_card.pop(0)
@@ -27,6 +31,7 @@ class Player:
 
 
     def play_game(self):
+        self.play_check = 0
         system("cls")
         ult_board.create_table()
         table = ult_board.table

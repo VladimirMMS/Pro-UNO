@@ -1,9 +1,9 @@
 from players import Player
-from game import Game, game
+from game import  Game
 from os import system
 
-
-game.create_player()
+game = Game()
+game.create_players()
 
 
 for all_player in game.players:
