@@ -2,6 +2,7 @@ from players import Player
 from game import  Game
 from os import system
 
+
 game = Game()
 game.create_players()
 

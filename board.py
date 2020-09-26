@@ -2,11 +2,11 @@ from deck import Deck
 from os import system
 import random
 
+
 card = Deck()
 normal_creation = card.create_cards()
 special_creation = card.create_specialcards()
 total_card = card.decks_compi
-
 
 class Board:
     def __init__(self):
@@ -55,4 +55,4 @@ class Board:
                     |                                                        |
                     |________________________________________________________|
                                                                 """.format(self.deck_table[0]))
-        
+    

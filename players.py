@@ -9,7 +9,7 @@ ult_board = Board()
 ult_board.cart_of_table()
 card_table = ult_board.deck_table
 
-# table = ult_board.table
+
 
 
 class Player:
